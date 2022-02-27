@@ -292,7 +292,7 @@ const bucket = new s3.Bucket(
 
 # Live demo/coding.. 
 
-* [code at](https://github.com/SathyaBhat/talks-slides)
+* [code at](https://github.com/SathyaBhat/talks-slides/tree/main/infra-as-code-awsug-nairobi/infra)
 
 ---
 
@@ -313,5 +313,5 @@ const bucket = new s3.Bucket(
 * [GitHub repo (slides + code)](https://github.com/SathyaBhat/talks-slides)
 * [AWS CDK](https://aws.amazon.com/cdk)
 * [The CDK Book](https://www.thecdkbook.com/)
-* [The CDK Day](https://www.cdkday.com/))
+* [The CDK Day](https://www.cdkday.com/)
 * Catch me on [Twitter](https://twitter.com/sathyabhat), [GitHub](https://github.com/sathyabhat), [LinkedIn](https://www.linkedin.com/in/sathyabhat/) - sathyabhat
