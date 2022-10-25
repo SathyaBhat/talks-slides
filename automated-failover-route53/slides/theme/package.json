@@ -1,0 +1,75 @@
+{
+  "_args": [
+    [
+      "@slidev/theme-seriph@0.21.3",
+      "/home/sathya/code/talks-slides/automated-failover-route53/slides"
+    ]
+  ],
+  "_from": "@slidev/theme-seriph@0.21.3",
+  "_id": "@slidev/theme-seriph@0.21.3",
+  "_inBundle": false,
+  "_integrity": "sha512-cLya6O4hmcLHUhloCMPPoKMLX27Q+8M8pRS82BSsLXVeXTXrlpc3l3glx5VB738p+NQr7FgqFN6H2CXQRoVv9Q==",
+  "_location": "/@slidev/theme-seriph",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@slidev/theme-seriph@0.21.3",
+    "name": "@slidev/theme-seriph",
+    "escapedName": "@slidev%2ftheme-seriph",
+    "scope": "@slidev",
+    "rawSpec": "0.21.3",
+    "saveSpec": null,
+    "fetchSpec": "0.21.3"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@slidev/theme-seriph/-/theme-seriph-0.21.3.tgz",
+  "_spec": "0.21.3",
+  "_where": "/home/sathya/code/talks-slides/automated-failover-route53/slides",
+  "author": {
+    "name": "antfu",
+    "email": "anthonyfu117@hotmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/slidevjs/themes/issues"
+  },
+  "dependencies": {
+    "@slidev/types": "^0.22.7",
+    "codemirror-theme-vars": "^0.1.1",
+    "prism-theme-vars": "^0.2.2",
+    "theme-vitesse": "^0.1.12"
+  },
+  "description": "Seriph theme for Slidev",
+  "engines": {
+    "node": ">=14.0.0",
+    "slidev": ">=0.19.3"
+  },
+  "funding": "https://github.com/sponsors/antfu",
+  "homepage": "https://sli.dev",
+  "keywords": [
+    "slidev-theme",
+    "slidev"
+  ],
+  "license": "MIT",
+  "name": "@slidev/theme-seriph",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slidevjs/themes.git"
+  },
+  "slidev": {
+    "colorSchema": "both",
+    "highlighter": "all",
+    "defaults": {
+      "fonts": {
+        "mono": "PT Mono",
+        "sans": "PT Serif",
+        "serif": "PT Serif",
+        "italic": true,
+        "weights": "400, 700"
+      }
+    }
+  },
+  "version": "0.21.3"
+}
