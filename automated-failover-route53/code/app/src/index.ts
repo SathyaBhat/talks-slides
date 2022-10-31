@@ -15,4 +15,13 @@ app.get("/healthz", (req, res) => {
   res.status(200).send({ data: "Healthy!", app });
 });
 
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+process.on("SIGINT", () => {
+  console.log("Stopping ...");
+  server.close(() => {
+    console.log("Stopped");
+  });
+});
+
+const server = app.listen(port, () =>
+  console.log(`Server listening on port ${port}`)
+);

@@ -1,3 +1,3 @@
 export function getRegion() {
-  return { region: "us-east-1" };
+  return { data: `Hello from ${process.env.AWS_REGION} region!` };
 }
