@@ -36,8 +36,8 @@ todo: add about route 53 mapper, (ab)using health checks to force traffic, don't
 
 # Some notes
 
-- Feel free to stop me at any time!
-- Slides on GitHub
+- Feel free to stop me at any time
+- Slides at https://slides.sathyasays.com/
 
 ---
 
@@ -419,27 +419,115 @@ Multivalue
 
 ---
 
-# Deepdive into Route 53 Health Checks
+# Route 53 Health Checks
 
 <v-clicks>
+
+- Route 53 monitors health of resource
+- Types of Route 53 health checks:
+  - Monitor an endpoint
+  - Monitor CloudWatch alarms
+  - Calculated health checks
 
 </v-clicks>
 
 ---
 
-# Multi-AZ v/s Multi-Region
+# Route 53 Health Checks - Monitoring Endpoints
+
+<v-clicks>
+
+- Monitor for specific endpoints by
+
+  - protocol (HTTP/HTTPS/TCP)
+  - Domain name
+  - IP
+  - path
+
+</v-clicks>
+
+<!--
+
+Route 53 uses different methods:
+
+* if you specify HTTP, it establishes a TCP connect, makes a HTTP request and waits for a 2xx/3xx status code.
+* if you specify HTTPS, it establishes a TCP connect, makes a HTTPS request and & waits for a 2xx/3xx status code.
+* if you specify TCP, it establishes a TCP connection
+
+-->
 
 ---
 
-# What's a good candidate for multi-region?
+# Route 53 Health Checks - Monitoring Endpoints - Advanced Properties
+
+- Endpoint monitoring caan have advanced confi options:
+
+  - Time between health checks
+  - string matching
+  - Failure thresholds
+  - Inverted health checks
+  - Customizable regions
 
 ---
 
-# Applying automated failover
+# What apps are good candidate for multi-region?
+
+<v-clicks>
+
+- Depends on how you architect them and how you do multi-region
+- Active-Active?
+  - Stateless services
+  - Services with data stores:
+    - Global backing stores
+    - Regional data store w/ replication
+
+</v-clicks>
+
+---
+
+# What apps are good candidate for multi-region?
+
+<v-clicks>
+
+- Active-Passive?
+  - Active compute in the active region
+  - Cold/warm data store with ready to cut over
+  - Another approach: multi-region, multi-master aware data stores
+
+</v-clicks>
+
+---
+
+# How would the records look like?
+
+```mermaid {scale: 0.7}
+
+graph LR
+  client((client))
+  client --> dns[example.com]
+  dns -- geo/lbr --> lbr[geo.example.com]
+  lbr -- us/hc --> us[us.example.com]
+  lbr -- eu/hc --> eu[eu.example.com]
+  lbr -- ap/hc --> ap[ap.example.com]
+  us -- us/a --> us/a[us-a.example.com]
+  us -- us/b --> us/b[us-b.example.com]
+  eu -- eu/a --> eu/a[eu-a.example.com]
+  eu -- eu/b --> eu/b[eu-b.example.com]
+  ap -- ap/a --> ap/a[ap-a.example.com]
+  ap -- ap/b --> ap/b[ap-b.example.com]
+
+```
 
 ---
 
 # Hints, tips
+
+- Understand your application architecture before jumping in
+- Irony: Route 53 is available only in us-east-1
+- (Ab)use your health checks for reliability:
+  - having issues in specific AZ but not enough to trigger a failover? Fail the healthcheck
+- Have aws-cli commands for creating records handy!
+  - CLI retries but not the console
 
 ---
 
@@ -451,7 +539,3 @@ Multivalue
 ---
 
 ## src: ../../about.md
-
-```
-
-```
