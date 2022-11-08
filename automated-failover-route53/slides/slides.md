@@ -184,6 +184,8 @@ graph LR
 
 </v-clicks>
 
+---
+
 # Route 53 record types - Standard
 
 <v-clicks>
@@ -460,7 +462,7 @@ Route 53 uses different methods:
 
 # Route 53 Health Checks - Monitoring Endpoints - Advanced Properties
 
-- Endpoint monitoring caan have advanced confi options:
+- Endpoint monitoring can have advanced config options:
 
   - Time between health checks
   - string matching
@@ -522,6 +524,8 @@ graph LR
 
 # Hints, tips
 
+<v-clicks>
+
 - Understand your application architecture before jumping in
 - Irony: Route 53 is available only in us-east-1
 - (Ab)use your health checks for reliability:
@@ -529,6 +533,7 @@ graph LR
 - Have aws-cli commands for creating records handy!
   - CLI retries but not the console
 
+</v-clicks>
 ---
 
 # Q&A, Links
@@ -537,5 +542,5 @@ graph LR
 - Catch me on [Twitter](https://twitter.com/sathyabhat), [GitHub](https://github.com/sathyabhat), [LinkedIn](https://www.linkedin.com/in/sathyabhat/) - sathyabhat
 
 ---
-
-## src: ../../about.md
+src: ../../about.md
+---
