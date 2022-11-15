@@ -21,23 +21,34 @@ title: Enabling automated multi-region failover and failback using Route 53
 # Agenda
 
 - What's DNS?
-- Deep dive into Route 53
+- Deep dive into Route 53 Records & Health Check
 - What's a good candidate for multi-region?
 - Applying automated failover
 - Hints, tips
-- About me
 
-<!--
+<!-- 
 
-todo: add about route 53 mapper, (ab)using health checks to force traffic, don't be afraid of the CLI & more
+* Welcome to my talk about DNS and Route 53. 
+* I'm Sathyajith Bhat, a Staff SRE at The Trade Desk and an AWS Container Hero
+* This is what we have lined up for the talk.
+
 -->
 
 ---
 
 # Some notes
 
-- Feel free to stop me at any time
+- Drop your questions as chat
 - Slides at https://slides.sathyasays.com/
+
+<!-- 
+
+Some housekeeping rules:
+
+* If you have any questions, leave them in chat, will pick it up later
+* Slides are on my website, which has link to the source code as well
+
+-->
 
 ---
 
@@ -49,19 +60,23 @@ todo: add about route 53 mapper, (ab)using health checks to force traffic, don't
 - Domain Name System - "phonebook of the internet"
   - _does anyone *remember* what phonebooks are?_
 - Maps host names to IP addresses for services to look up
-- DNS Servers and clients
+- DNS resolution involves clients, resolvers, and servers.
 
 </v-clicks>
 
 <!--
 
-* Have you ever wondered what happens when you type in a website address?
-  * How does it get connected to the website?
+* let's start - 
+* Have you ever wondered what happens when you type in a website address? 
+  * How do you get connected to the website?
+  * Leave a comment if you know
 
 * There's a nice github page that talks about this, and while I don't want to focus on the details, I want to point out
 about name resolution. Ie, how a domain name gets mapped to an IP address
 * That is done by DNS.
-talk about how DNS resolution works
+* DNS is called the "phonebook of the internet"
+* DNS resolution involves clients, resolvers, and servers.
+* I'll give a brief on steps involved in resolution, but first lets look at DNS servers, resolvers and what they mean 
 
 1. gethostbyname
 -->
@@ -72,20 +87,25 @@ talk about how DNS resolution works
 
 <v-clicks>
 
-- Recursive resolver - acts as a middleman between client & naemserver.
+- Recursive resolver - acts as a middleman between client & nameserver.
 - Root nameserver - First step of hostname resolution and serves as a reference to another locations
   - fun fact: there are only 13 root name servers! Do you know which ones they are?
-- TLD Nameserver - Next step of host resolution and holds the TLD records
-- Authoritative server - holds the actual IP address
+- TLD Nameserver - Next step of host resolution and holds the TLD records (.com etc)
+- Authoritative server - holds the actual IP address of the requested domain
 
 </v-clicks>
 
 <!--
 
+* Let's look at the type of servers involved in DNS resolution. First is the recurisve resolver.
 * The recursive resolver contacts the root nameserver, which is the first stop for a recursive resolver.
 * Once it gets a response from a root nameserver, it get talks to the TLD nameserver, and then authoritive.
+* every resolvers knows the root servers, and there are 13 of them
 `{a-m}.root-servers.net`
+* Once the resolver gets the TLD nameserver address, the request is then forwarded to the TLD
+* The TLD nameserver holds TLD record (for .com is a TLD), and responds with IP of the authoritative server, which holds the IP address for the requested domain
 
+* 
 -->
 
 ---
@@ -133,6 +153,14 @@ dig +short TXT whois.aws.sathyabh.at
 
 "Sathyajith is a Staff SRE currently working at the Trade Desk"
 ```
+<!--
+
+Let's look at how you can query for DNS records. 
+the most common tool is dig (Domain Information Groper)
+* using dig, you can pull up the records, 
+* if you don't specify the record type, it fetches the A records
+
+-->
 
 ---
 
@@ -184,6 +212,10 @@ graph LR
 
 </v-clicks>
 
+<!-- 
+* remember, this is not to be confused with DNS record types
+-->
+
 ---
 
 # Route 53 record types - Standard
@@ -192,7 +224,7 @@ graph LR
 
 - Simple Routing
 
-  - Standard DNS record with no addition Route 53 routing/features
+  - Standard DNS record with no additional Route 53 routing/features
 
 ```mermaid
 
@@ -200,7 +232,7 @@ graph LR
   client((client))
   client --> dns[example.com]
   dns -->ip[65.8.33.32]
-  dns -->ip[65.8.33.80]
+  dns -->ip2[65.8.33.80]
 
 ```
 
@@ -208,8 +240,7 @@ graph LR
 
 <!--
 
-* remember, this is not to be confused with DNS record types
-* can you same record with different IPs
+* you can have the same record with different IPs
 -->
 
 ---
@@ -275,8 +306,7 @@ graph LR
 
 <!--
 
-* remember, this is not to be confused with DNS record types
-* can you same record with different IPs
+
 -->
 
 ---
@@ -308,6 +338,7 @@ graph LR
 
 <!--
 
+* weighted records can be used for traffic shifting, a/b deploys etc
 * note that weights can be any numbers
   * 0 - 100 gives an easy % mapping
 
@@ -321,6 +352,7 @@ graph LR
 
 - Multiple records associated with a domain
 - Each record is associated with a Geographic location
+  - A default location needs to be provided if location is not available
   - Traffic distribution is based on user of the Geo
   - Geo targeting can be traffic from continents or countries
 - Add health checks to skip unhealthy targets!
@@ -392,8 +424,7 @@ graph LR
 
 ---
 
-# Route 53 record types - IP-based, Multi-vbalue
-
+# Route 53 record types - IP-based, Multi-value
 <v-clicks>
 
 IP Based
@@ -413,10 +444,7 @@ Multivalue
 * AWS uses EDNS0 to estimate the location
 * ENDS0 adds several extensions, one of them [edns-client-subnet](https://tools.ietf.org/html/draft-ietf-dnsop-edns-client-subnet-08)
 * If browser or any client doesn't edns-client-subnet, R53 falls back IP determination using truncated IP of the user
-* Latency is calculated based AWS' latency data
 
-* We've seen cases where latency data was wrong on AWS, and request from CA was being sent to Japan, instead of us-west-2
-* _A request that is routed to the Oregon region this week might be routed to the Singapore region next week._
 -->
 
 ---
