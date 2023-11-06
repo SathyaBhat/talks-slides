@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.43.12",
+    "@slidev/theme-seriph": "^0.21.3",
+    "slidev-theme-dracula": "^0.2.0"
+  },
+  "name": "slides",
+  "devDependencies": {
+    "@iconify-json/logos": "^1.1.17",
+    "@iconify-json/mdi": "^1.1.34",
+    "@types/node": "^18.11.5"
+  }
+}
