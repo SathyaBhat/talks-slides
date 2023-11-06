@@ -235,6 +235,8 @@ layout: default
 * Focus on application, not infra.
   * Let AWS handle the infrastructure overheads
 
+---
+
 # Further reading
 
 * [Nathan Peck](https://nathanpeck.com/) - [Choosing your container environment](https://nathanpeck.com/choosing-container-environment-on-aws-lightsail-ecs-eks-lambda-fargate/)
