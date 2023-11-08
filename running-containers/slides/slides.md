@@ -209,7 +209,7 @@ layout: default
 
 * Starting to experiment with containers?
   * Amazon Lightsail Containers
-* Are they even-driven & can fit in Lambda's runtime limits?
+* Are they event-driven & can fit in Lambda's runtime limits?
   * AWS Lambda
 * Are they optimized for request/response cycles?
   * AWS App Runner
