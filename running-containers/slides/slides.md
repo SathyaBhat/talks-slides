@@ -245,13 +245,3 @@ layout: default
   * [ECS Workshop](https://ecsworkshop.com/)
   * [AWS AppRunner Workshop](https://www.apprunnerworkshop.com/)
 
----
-image: images/survey-qr-code.png
-layout: image-right
----
-
-# QA / Feedback
-
-* Questions?
-* Please fill [in the survey](https://pulse.aws/survey/SQCRNIGV)!
-  * https://pulse.aws/survey/SQCRNIGV
